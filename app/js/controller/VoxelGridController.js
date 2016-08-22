@@ -18,12 +18,12 @@ export default class VoxelGridController {
     addVoxelPointer() {
         const voxelPointerCommand = new AddVoxelCommand(this.voxelGrid, generateUUID(), 0, 0, 0, Voxel.Pointer, randomColor());
 
-        this.voxelPointer = voxelPointerCommand.execute();
+        this.voxelGrid.voxelPointer = voxelPointerCommand.execute();
         this.voxelGridRemoteMediator.onCommandExecuted(voxelPointerCommand);
     }
 
     onCellHover(cell) {
-        this.executeCommand(new MoveVoxelCommand(this.voxelGrid, this.voxelPointer, cell[0], cell[1], cell[2]));
+        this.executeCommand(new MoveVoxelCommand(this.voxelGrid, this.voxelGrid.voxelPointer, cell[0], cell[1], cell[2]));
     }
 
     onCellClicked(cell, isShiftDown, uiSettings) {

@@ -1,4 +1,5 @@
 import CommandSerializer from './CommandSerializer';
+import RemoveVoxelCommand from '../command/RemoveVoxelCommand';
 
 export default class VoxelGridRemoteMediator {
     constructor(voxelGrid, remoteClient) {
@@ -6,6 +7,9 @@ export default class VoxelGridRemoteMediator {
         this.remoteClient = remoteClient;
         this.commandSerializer = new CommandSerializer(voxelGrid);
         this.remoteClient.addObserver("MesageReceived", (e) => this.onMessageReceived(e));
+
+        const terminationCommand = new RemoveVoxelCommand(this.voxelGrid, this.voxelGrid.voxelPointer);
+
     }
 
     onCommandExecuted(command) {
@@ -18,7 +22,8 @@ export default class VoxelGridRemoteMediator {
         const serializedCommand = JSON.parse(data);
         const command = this.commandSerializer.deserialize(serializedCommand);
 
-        command.execute();
+        if (command) {
+            command.execute();
+        }
     }
-
 }

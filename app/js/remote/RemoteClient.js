@@ -16,6 +16,10 @@ export default class RemoteClient extends Observable {
         this.ws.onopen = (event) => {
             this.emit('Connected', event);
         };
+
+        this.ws.onclose = function(e) {
+            this.send('DisConnected');
+        };
     }
 
     send(data) {

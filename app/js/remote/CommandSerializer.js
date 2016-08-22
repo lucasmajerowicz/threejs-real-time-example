@@ -36,6 +36,7 @@ export default class CommandSerializer {
     }
 
     deserialize(serializedCommand) {
+        let voxel;
         switch (serializedCommand.className) {
             case 'AddVoxelCommand':
                 return new AddVoxelCommand(
@@ -48,19 +49,31 @@ export default class CommandSerializer {
                     serializedCommand.color
                 );
             case 'MoveVoxelCommand':
-                return new MoveVoxelCommand(
-                    this.voxelGrid,
-                    this.deserializeVoxel(serializedCommand.voxel),
-                    serializedCommand.x,
-                    serializedCommand.y,
-                    serializedCommand.z
-                );
+                voxel = this.deserializeVoxel(serializedCommand.voxel);
+
+                if (voxel) {
+                    return new MoveVoxelCommand(
+                        this.voxelGrid,
+                        voxel,
+                        serializedCommand.x,
+                        serializedCommand.y,
+                        serializedCommand.z
+                    );
+                }
+                break;
             case 'RemoveVoxelCommand':
-                return new RemoveVoxelCommand(
-                    this.voxelGrid,
-                    this.serializeVoxel(serializedCommand.voxel)
-                );
+                voxel = this.deserializeVoxel(serializedCommand.voxel);
+
+                if (voxel) {
+                    return new RemoveVoxelCommand(
+                        this.voxelGrid,
+                        voxel
+                    );
+                }
+                break;
         }
+
+        return null;
     }
 
     serializeVoxel(voxel) {
