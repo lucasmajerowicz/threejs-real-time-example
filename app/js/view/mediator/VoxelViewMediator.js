@@ -8,7 +8,6 @@ export default class VoxelViewMediator extends ViewMediator {
 
     makeObject3D() {
         const geometry = new THREE.BoxGeometry( this.model.size, this.model.size, this.model.size );
-
         const mesh = new THREE.Mesh(geometry, this.getMaterialForVoxel());
 
         return mesh;

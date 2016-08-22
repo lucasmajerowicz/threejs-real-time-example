@@ -1,5 +1,6 @@
 export default class Voxel {
-    constructor(x, y, z, type, color) {
+    constructor(id, x, y, z, type, color) {
+        this.id = id;
         this.x = x;
         this.y = y;
         this.z = z;

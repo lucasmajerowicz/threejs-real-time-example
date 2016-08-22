@@ -4,18 +4,16 @@ import VoxelGrid from './js/model/VoxelGrid';
 import Voxel from './js/model/Voxel';
 import VoxelGridController from './js/controller/VoxelGridController';
 import RemoteClient from './js/remote/RemoteClient';
-import VoxelGridRemoteMediator from './js/remote/mediator/VoxelGridRemoteMediator';
+import VoxelGridRemoteMediator from './js/remote/VoxelGridRemoteMediator';
 
 const voxelGrid = new VoxelGrid(10, 40);
-
-const voxelGridController = new VoxelGridController(voxelGrid);
-
 
 const remoteClient = new RemoteClient('ws://localhost:8081');
 
 remoteClient.addObserver("Connected", (e) => {
+    console.log('connected');
     const voxelGridRemoteMediator = new VoxelGridRemoteMediator(voxelGrid, remoteClient);
-
+    const voxelGridController = new VoxelGridController(voxelGrid, voxelGridRemoteMediator);
 });
 
 remoteClient.connect();

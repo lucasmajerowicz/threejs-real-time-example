@@ -6,12 +6,12 @@ export default class VoxelGrid extends Observable {
         super();
         this.numCells = numCells;
         this.cellSize = cellSize;
-        this.voxels = [];
+        this.voxels = new Map();
         this.className = 'VoxelGrid';
     }
 
     addVoxel(voxel) {
-        this.voxels.push(voxel);
+        this.voxels.set(voxel.id, voxel);
         this.emit('VoxelAdded', { voxel });
     }
 
@@ -24,9 +24,12 @@ export default class VoxelGrid extends Observable {
     }
 
     removeVoxel(voxel) {
-        this.voxels.splice(this.voxels.indexOf(voxel), 1);
+        this.voxels.delete(voxel.id);
 
         this.emit('VoxelRemoved', { voxel });
     }
 
+    getVoxelById(id) {
+        return this.voxels.get(id);
+    }
 }
