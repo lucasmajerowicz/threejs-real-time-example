@@ -1,7 +1,7 @@
 import VoxelGridViewMediator from './mediator/VoxelGridViewMediator';
 import RenderingContext from './RenderingContext';
 import { dat } from '../../bin/dat.gui.min.js';
-import Voxel from '../model/Voxel';
+const Voxel = require('../model/Voxel');
 
 export default class MainView {
     constructor(controller, voxelGrid) {

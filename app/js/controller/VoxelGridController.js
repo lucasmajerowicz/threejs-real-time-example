@@ -13,6 +13,7 @@ export default class VoxelGridController {
         this.view = new MainView(this, voxelGrid);
         this.view.initialize();
         this.addVoxelPointer();
+        this.voxelGridRemoteMediator.initialize();
     }
 
     addVoxelPointer() {

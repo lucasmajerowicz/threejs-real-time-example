@@ -5,10 +5,11 @@ import Voxel from './js/model/Voxel';
 import VoxelGridController from './js/controller/VoxelGridController';
 import RemoteClient from './js/remote/RemoteClient';
 import VoxelGridRemoteMediator from './js/remote/VoxelGridRemoteMediator';
+import CommandSerializer from './js/remote/CommandSerializer';
 
 const voxelGrid = new VoxelGrid(10, 40);
 
-const remoteClient = new RemoteClient('ws://localhost:8081');
+const remoteClient = new RemoteClient('ws://localhost:8081', new CommandSerializer(voxelGrid));
 
 remoteClient.addObserver("Connected", (e) => {
     console.log('connected');

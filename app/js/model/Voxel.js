@@ -1,4 +1,4 @@
-export default class Voxel {
+class Voxel {
     constructor(id, x, y, z, type, color) {
         this.id = id;
         this.x = x;
@@ -16,3 +16,4 @@ Voxel.Water = 2;
 Voxel.Stone = 3;
 Voxel.Pointer = 4;
 
+module.exports = Voxel;
