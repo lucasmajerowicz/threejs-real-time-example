@@ -1,8 +1,8 @@
-import AddVoxelCommand from '../command/AddVoxelCommand';
-import MoveVoxelCommand from '../command/MoveVoxelCommand';
-import RemoveVoxelCommand from '../command/RemoveVoxelCommand';
+const AddVoxelCommand = require('../command/AddVoxelCommand');
+const MoveVoxelCommand = require('../command/MoveVoxelCommand');
+const RemoveVoxelCommand = require('../command/RemoveVoxelCommand');
 
-export default class CommandSerializer {
+class CommandSerializer {
     constructor(voxelGrid) {
         this.voxelGrid = voxelGrid;
     }
@@ -84,3 +84,5 @@ export default class CommandSerializer {
         return this.voxelGrid.getVoxelById(serializedVoxel.id);
     }
 }
+
+module.exports = CommandSerializer;

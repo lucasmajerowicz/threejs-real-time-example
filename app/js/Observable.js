@@ -1,4 +1,4 @@
-export default class Observable {
+class Observable {
     constructor() {
         this.observers = new Map();
     }
@@ -23,3 +23,5 @@ export default class Observable {
     }
 
 }
+
+module.exports = Observable;

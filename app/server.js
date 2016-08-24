@@ -1,4 +1,9 @@
-const Voxel = require('./js/model/Voxel');
+const VoxelGrid = require('./js/model/VoxelGrid');
+const CommandSerializer = require('./js/remote/CommandSerializer');
+const AddVoxelCommand = require('./js/command/AddVoxelCommand');
+
+const voxelGrid = new VoxelGrid(40, 40);
+const commandSerializer = new CommandSerializer(voxelGrid);
 
 var WebSocketServer = require('ws').Server
     , wss = new WebSocketServer({port: 8081});
@@ -30,12 +35,36 @@ wss.on('connection', function connection(ws) {
     });
 
     function broadcast(serializedCommand) {
-        console.log(serializedCommand);
+        executeCommand(JSON.parse(serializedCommand));
         wss.clients.forEach(function each(client) {
             if (client.connectionId != connectionId) {
                 client.send(serializedCommand);
             }
         });
     }
+
+    for (const command of getInitCommands()) {
+        const serializedCommand = JSON.stringify(command);
+        ws.send(serializedCommand);
+    }
 });
 
+
+function executeCommand(serializedCommand) {
+    const command = commandSerializer.deserialize(serializedCommand);
+
+    if (command) {
+        command.execute();
+    } else {
+        console.error('invalid commmand', serializedCommand);
+    }
+}
+
+function getInitCommands() {
+    const result = [];
+
+    for (const voxel of voxelGrid.voxels.values()) {
+        result.push(new AddVoxelCommand(voxelGrid, voxel.id, voxel.x, voxel.y, voxel.z, voxel.type, voxel.color));
+    }
+    return result;
+}

@@ -99,7 +99,7 @@ export default class VoxelGridViewMediator extends ViewMediator {
     }
 
     getGridPlane() {
-        const geometry = new THREE.PlaneBufferGeometry(1000, 1000);
+        const geometry = new THREE.PlaneBufferGeometry(2000, 2000);
         geometry.rotateX(-Math.PI / 2);
 
         const plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({visible: false}));

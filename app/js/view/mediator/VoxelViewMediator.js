@@ -31,6 +31,8 @@ export default class VoxelViewMediator extends ViewMediator {
                 return 'water.jpg';
             case Voxel.Stone:
                 return 'stone.jpg';
+            case Voxel.Grass:
+                return 'grass.jpg';
         }
 
         return 'brick.jpg';

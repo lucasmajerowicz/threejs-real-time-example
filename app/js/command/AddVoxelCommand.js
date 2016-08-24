@@ -1,6 +1,6 @@
-import Voxel from '../model/Voxel';
+const Voxel = require('../model/Voxel');
 
-export default class AddVoxelCommand {
+class AddVoxelCommand {
     constructor(voxelGrid, id, x, y, z, type, color) {
         this.voxelGrid = voxelGrid;
         this.id = id;
@@ -19,3 +19,5 @@ export default class AddVoxelCommand {
         return voxel;
     }
 }
+
+module.exports = AddVoxelCommand;

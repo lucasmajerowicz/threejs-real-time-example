@@ -1,6 +1,6 @@
-import Voxel from '../model/Voxel';
+const Voxel = require('../model/Voxel');
 
-export default class RemoveVoxelCommand {
+class RemoveVoxelCommand {
     constructor(voxelGrid, voxel) {
         this.voxelGrid = voxelGrid;
         this.voxel = voxel;
@@ -11,3 +11,5 @@ export default class RemoveVoxelCommand {
         this.voxelGrid.removeVoxel(this.voxel);
     }
 }
+
+module.exports = RemoveVoxelCommand;

@@ -10,10 +10,11 @@ class Voxel {
     }
 }
 
-Voxel.Brick = 0;
+Voxel.Pointer = 0;
 Voxel.Crate = 1;
 Voxel.Water = 2;
 Voxel.Stone = 3;
-Voxel.Pointer = 4;
+Voxel.Brick = 4;
+Voxel.Grass = 5;
 
 module.exports = Voxel;

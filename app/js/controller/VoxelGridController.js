@@ -29,7 +29,7 @@ export default class VoxelGridController {
 
     onCellClicked(cell, isShiftDown, uiSettings) {
         if (isShiftDown) {
-            const voxel = this.voxelGrid.voxels.find(voxel => voxel.type !== Voxel.Pointer && voxel.x === cell[0] && voxel.y === cell[1] && voxel.z === cell[2]);
+            const voxel = this.voxelGrid.getNonPointerVoxelByPosition(cell[0], cell[1], cell[2]);
 
             if (voxel) {
                 this.executeCommand(new RemoveVoxelCommand(this.voxelGrid, voxel));

@@ -1,7 +1,7 @@
-import Observable from '../Observable';
-import Voxel from './Voxel';
+const Observable = require('../Observable');
+const Voxel = require('./Voxel');
 
-export default class VoxelGrid extends Observable {
+class VoxelGrid extends Observable {
     constructor(numCells, cellSize) {
         super();
         this.numCells = numCells;
@@ -32,4 +32,16 @@ export default class VoxelGrid extends Observable {
     getVoxelById(id) {
         return this.voxels.get(id);
     }
+
+    getNonPointerVoxelByPosition(x, y, z) {
+        for (const voxel of this.voxels.values()) {
+            if (voxel.type !== Voxel.Pointer && voxel.x === x && voxel.y === y && voxel.z === z) {
+                return voxel;
+            }
+        }
+
+        return null;
+    }
 }
+
+module.exports = VoxelGrid;
