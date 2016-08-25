@@ -73,7 +73,7 @@
 
 	var voxelGrid = new VoxelGrid(50, 40);
 
-	var remoteClient = new _RemoteClient2.default('ws://104.197.115.91:80', new CommandSerializer(voxelGrid));
+	var remoteClient = new _RemoteClient2.default('wss://104.197.115.91:80', new CommandSerializer(voxelGrid));
 
 	remoteClient.addObserver("Connected", function (e) {
 	    console.log('connected');
