@@ -2,7 +2,7 @@ const VoxelGrid = require('./js/model/VoxelGrid');
 const CommandSerializer = require('./js/remote/CommandSerializer');
 const AddVoxelCommand = require('./js/command/AddVoxelCommand');
 
-const voxelGrid = new VoxelGrid(40, 40);
+const voxelGrid = new VoxelGrid(50, 40);
 const commandSerializer = new CommandSerializer(voxelGrid);
 
 var WebSocketServer = require('ws').Server

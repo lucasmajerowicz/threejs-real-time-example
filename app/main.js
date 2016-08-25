@@ -8,7 +8,7 @@ import VoxelGridRemoteMediator from './js/remote/VoxelGridRemoteMediator';
 const CommandSerializer = require('./js/remote/CommandSerializer');
 const VoxelGrid = require('./js/model/VoxelGrid');
 
-const voxelGrid = new VoxelGrid(40, 40);
+const voxelGrid = new VoxelGrid(50, 40);
 
 const remoteClient = new RemoteClient('ws://localhost:8081', new CommandSerializer(voxelGrid));
 
