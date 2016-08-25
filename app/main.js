@@ -10,7 +10,7 @@ const VoxelGrid = require('./js/model/VoxelGrid');
 
 const voxelGrid = new VoxelGrid(50, 40);
 
-const remoteClient = new RemoteClient('ws://localhost:8081', new CommandSerializer(voxelGrid));
+const remoteClient = new RemoteClient('ws://104.197.115.91:80', new CommandSerializer(voxelGrid));
 
 remoteClient.addObserver("Connected", (e) => {
     console.log('connected');

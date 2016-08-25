@@ -6,7 +6,7 @@ const voxelGrid = new VoxelGrid(50, 40);
 const commandSerializer = new CommandSerializer(voxelGrid);
 
 var WebSocketServer = require('ws').Server
-    , wss = new WebSocketServer({port: 8081});
+    , wss = new WebSocketServer({port: 80});
 
 var nextId = 0;
 
