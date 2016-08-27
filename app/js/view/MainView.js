@@ -30,8 +30,9 @@ export default class MainView {
 
         this.raycaster = new THREE.Raycaster();
         this.mouse = new THREE.Vector2();
-
+        this.mouseMoved = false;
         this.renderingContext.renderer.domElement.addEventListener('mousemove', (e) => this.onDocumentMouseMove(e), false);
+        this.renderingContext.renderer.domElement.addEventListener('mouseup', (e) => this.onDocumentMouseUp(e), false);
         this.renderingContext.renderer.domElement.addEventListener('mousedown', (e) => this.onDocumentMouseDown(e), false);
         document.addEventListener('keydown', (e) => this.onDocumentKeyDown(e), false);
         document.addEventListener('keyup', (e) => this.onDocumentKeyUp(e), false);
@@ -72,13 +73,20 @@ export default class MainView {
         if (cell) {
             this.controller.onCellHover(cell);
         }
+        this.mouseMoved = true;
     }
 
     onDocumentMouseDown(event) {
-        const cell = this.computeCellMouseIntersection(event);
+        this.mouseMoved = false;
+    }
 
-        if (cell) {
-            this.controller.onCellClicked(cell, this.isShiftDown, this.uiSettings);
+    onDocumentMouseUp(event) {
+        if (!this.mouseMoved) {
+            const cell = this.computeCellMouseIntersection(event);
+
+            if (cell) {
+                this.controller.onCellClicked(cell, this.isShiftDown, this.uiSettings);
+            }
         }
     }
 
