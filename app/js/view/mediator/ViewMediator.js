@@ -1,20 +1,20 @@
-import Observable from '../../Observable';
+import Observable from "../../Observable";
 
 export default class ViewMediator extends Observable {
-    constructor(model) {
-        super();
-        this.model = model;
-        this.object3D = this.makeObject3D();
-        this.object3D.name = model.name;
-        this.childMediators = new Map();
-        this.object3D.traverse((object3D) => {
-            object3D.mediator = this;
-        });
-    }
+  constructor(model) {
+    super();
+    this.model = model;
+    this.object3D = this.makeObject3D();
+    this.object3D.name = model.name;
+    this.childMediators = new Map();
+    this.object3D.traverse((object3D) => {
+      object3D.mediator = this;
+    });
+  }
 
-    makeObject3D() {
-        return new THREE.Object3D();
-    }
+  makeObject3D() {
+    return new THREE.Object3D();
+  }
 
     addChild(child, mediator) {
         this.childMediators.set(child, mediator);
@@ -30,10 +30,9 @@ export default class ViewMediator extends Observable {
         }
     }
 
-    onFrameRenderered() {
-        for (const childMediator of this.childMediators.values()) {
-            childMediator.onFrameRenderered();
-        }
+  onFrameRenderered() {
+    for (const childMediator of this.childMediators.values()) {
+      childMediator.onFrameRenderered();
     }
+  }
 }
-
