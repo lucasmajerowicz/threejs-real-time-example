@@ -1,15 +1,10 @@
 import ViewMediator from "./ViewMediator";
-import PawnViewMediator from "./PawnViewMediator";
-import KingViewMediator from "./KingViewMediator";
-import TowerViewMediator from "./TowerViewMediator";
-import HorseViewMediator from "./HorseViewMediator";
-import QueenViewMediator from "./QueenViewMediator";
-import KnightViewMediator from "./KnightViewMediator";
-import Pawn from "../../model/Pawn";
+import ViewMediatorFactory from "../ViewMediatorFactory";
 
 export default class ChessboardViewMediator extends ViewMediator {
   constructor(chessboard) {
     super(chessboard);
+    this.viewMediatorFactory = new ViewMediatorFactory();
     chessboard.addObserver("ChessPieceAdded", (e) => this.onChessPieceAdded(e));
     chessboard.addObserver("ChessPieceRemoved", (e) =>
       this.onChessPieceRemoved(e)
@@ -45,7 +40,7 @@ export default class ChessboardViewMediator extends ViewMediator {
     const chessPiece = e.chessPiece;
 
     // TODO Depending on the Model type add different Exact Pieces
-    const mediator = new KnightViewMediator(chessPiece);
+    const mediator = this.viewMediatorFactory.getMediator(chessPiece);
 
     this.childMediators.set(chessPiece, mediator);
 
