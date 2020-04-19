@@ -16,9 +16,9 @@ class Chessboard extends Observable {
   }
 
   moveChessPiece(chessPiece, x, y, z) {
-    voxel.x = x;
-    voxel.y = y;
-    voxel.z = z;
+    chessPiece.x = x;
+    chessPiece.y = y;
+    chessPiece.z = z;
     this.emit("ChessPieceMoved", { chessPiece });
   }
 
