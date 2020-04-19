@@ -22,7 +22,7 @@ class Chessboard extends Observable {
     this.emit("ChessPieceMoved", { chessPiece });
   }
 
-  removeVoxel(chessPiece) {
+  removeChessPiece(chessPiece) {
     this.chessPieces.delete(chessPiece.id);
     this.emit("ChessPieceRemoved", { chessPiece });
   }
@@ -31,22 +31,15 @@ class Chessboard extends Observable {
     return this.chessPieces.get(id);
   }
 
-  // TODO Get ChessPieceByType
+  getChessPieceByPosition(x, y, z) {
+    for (const chessPiece of this.chessPieces.values()) {
+      if (chessPiece.x === x && chessPiece.y === y && chessPiece.z === z) {
+        return chessPiece;
+      }
+    }
 
-  //   getNonPointerVoxelByPosition(x, y, z) {
-  //     for (const voxel of this.voxels.values()) {
-  //       if (
-  //         voxel.type !== Voxel.Pointer &&
-  //         voxel.x === x &&
-  //         voxel.y === y &&
-  //         voxel.z === z
-  //       ) {
-  //         return voxel;
-  //       }
-  //     }
-
-  //     return null;
-  //   }
+    return null;
+  }
 }
 
 module.exports = Chessboard;
