@@ -29,6 +29,29 @@ export default class ChessboardController {
   //     this.voxelGrid.voxelPointer = voxelPointerCommand.execute();
   //     this.voxelGridRemoteMediator.onCommandExecuted(voxelPointerCommand);
   //   }
+  initialize_chessboard() {
+    const pawn_positions = [
+      [["A", "2"], "Pawn"],
+      [["B", "2"], "Pawn"],
+      [["C", "2"], "Pawn"],
+      [["D", "2"], "Pawn"],
+      [["E", "2"], "Pawn"],
+      [["F", "2"], "Pawn"],
+      [["G", "2"], "Pawn"],
+      [["H", "2"], "Pawn"],
+      [["A", "1"], "Tower"],
+      [["H", "1"], "Tower"],
+      [["B", "1"], "Horse"],
+      [["G", "1"], "Horse"],
+      [["C", "1"], "Knight"],
+      [["F", "1"], "Knight"],
+      [["D", "1"], "Queen"],
+      [["E", "1"], "King"],
+    ];
+    pawn_positions.forEach((e) => {
+      this.chessboard.addChessPiece(this.createChessPiece(...e));
+    });
+  }
 
   onCellHover(cell) {
     console.log("Hovering");
