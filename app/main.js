@@ -13,6 +13,10 @@ const controller = new ChessboardController(
   chessboard,
   new ChessboardViewMediator(chessboard)
 );
+setTimeout(function () {
+  controller.initialize_chessboard();
+}, 2000); //wait for controller to initialize TODO use promises.
+
 // const remoteClient = new RemoteClient('ws://localhost:8081', new CommandSerializer(voxelGrid));
 
 // remoteClient.addObserver("Connected", (e) => {
