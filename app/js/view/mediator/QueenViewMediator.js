@@ -5,7 +5,7 @@ let loader = new THREE.OBJLoader();
 let model = new THREE.Object3D();
 loader.load(
   // resource URL
-  "chess_pieces/knight.obj",
+  "chess_pieces/queen.obj",
   // called when resource is loaded
   function (object) {
     console.log("Loaded");
