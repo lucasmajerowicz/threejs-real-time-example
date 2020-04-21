@@ -11,34 +11,41 @@ class Chessboard extends Observable {
   }
 
   addChessPiece(chessPiece) {
-    this.chessPieces.set(chessPiece.id, chessPiece);
+    this.chessPieces.set("".concat(chessPiece.x, chessPiece.y), chessPiece);
     this.emit("ChessPieceAdded", { chessPiece });
   }
 
-  moveChessPiece(chessPiece, x, y, z) {
+  moveChessPiece(chessPiece, x, y) {
     chessPiece.x = x;
     chessPiece.y = y;
-    chessPiece.z = z;
     this.emit("ChessPieceMoved", { chessPiece });
   }
 
   removeChessPiece(chessPiece) {
-    this.chessPieces.delete(chessPiece.id);
+    this.chessPieces.delete("".concat(chessPiece.x, chessPiece.y));
     this.emit("ChessPieceRemoved", { chessPiece });
   }
 
-  getChessPieceById(id) {
-    return this.chessPieces.get(id);
+  getChessPieceByCellId(cellId) {
+    return this.chessPieces.get(cellId);
   }
 
-  getChessPieceByPosition(x, y, z) {
+  getChessPieceByPosition(x, y) {
     for (const chessPiece of this.chessPieces.values()) {
-      if (chessPiece.x === x && chessPiece.y === y && chessPiece.z === z) {
+      if (chessPiece.x === x && chessPiece.y === y) {
         return chessPiece;
       }
     }
 
     return null;
+  }
+
+  cellFromCellId(cellId) {
+    return [cellId[0].charCodeAt(0) - 65, -parseInt(cellId[1]) + 8];
+  }
+
+  cellToCellId(cell) {
+    return [String.fromCharCode(cell[0] + 65), String(8 - cell[1])];
   }
 }
 

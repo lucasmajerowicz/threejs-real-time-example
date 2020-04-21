@@ -4,6 +4,7 @@ import ViewMediatorFactory from "../ViewMediatorFactory";
 export default class ChessboardViewMediator extends ViewMediator {
   constructor(chessboard) {
     super(chessboard);
+    this.chessboard = chessboard;
     this.viewMediatorFactory = new ViewMediatorFactory();
     chessboard.addObserver("ChessPieceAdded", (e) => this.onChessPieceAdded(e));
     chessboard.addObserver("ChessPieceRemoved", (e) =>
@@ -59,8 +60,12 @@ export default class ChessboardViewMediator extends ViewMediator {
       -(this.model.cellSize * this.model.numCells) / 2 +
       this.model.cellSize / 2;
 
-    cube.position.x = origin + chessPiece.x * this.model.cellSize;
-    cube.position.z = origin + chessPiece.y * this.model.cellSize;
+    const [cellX, cellY] = this.chessboard.cellFromCellId([
+      chessPiece.x,
+      chessPiece.y,
+    ]);
+    cube.position.x = origin + cellX * this.model.cellSize;
+    cube.position.z = origin + cellY * this.model.cellSize;
     cube.position.y = 0;
   }
 
@@ -79,10 +84,8 @@ export default class ChessboardViewMediator extends ViewMediator {
     if (
       result[0] >= 0 &&
       result[1] >= 0 &&
-      result[2] >= 0 &&
       result[0] < this.model.numCells &&
-      result[1] < this.model.numCells &&
-      result[2] < this.model.numCells
+      result[1] < this.model.numCells
     ) {
       return result;
     } else {
