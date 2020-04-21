@@ -32,31 +32,31 @@ export default class ChessboardController {
 
   onCellHover(cell) {
     console.log("Hovering");
-    //   this.executeCommand(
-    //     new MoveVoxelCommand(
-    //       this.voxelGrid,
-    //       this.voxelGrid.voxelPointer,
-    //       cell[0],
-    //       cell[1],
-    //       cell[2]
-    //     )
-    //   );
+    // this.executeCommand(
+    //   new MoveVoxelCommand(
+    //     this.voxelGrid,
+    //     this.voxelGrid.voxelPointer,
+    //     cell[0],
+    //     cell[1],
+    //     cell[2]
+    //   )
+    // );
   }
 
-  createChessPiece(cell, name) {
+  createChessPiece(chessCellId, name) {
     switch (name) {
       case "Knight":
-        return new Knight(generateUUID(), cell[0], cell[1], cell[2], "Knight");
+        return new Knight(generateUUID(), ...chessCellId, "Knight");
       case "King":
-        return new King(generateUUID(), cell[0], cell[1], cell[2], "King");
+        return new King(generateUUID(), ...chessCellId, "King");
       case "Queen":
-        return new Queen(generateUUID(), cell[0], cell[1], cell[2], "Queen");
+        return new Queen(generateUUID(), ...chessCellId, "Queen");
       case "Pawn":
-        return new Pawn(generateUUID(), cell[0], cell[1], cell[2], "Pawn");
+        return new Pawn(generateUUID(), ...chessCellId, "Pawn");
       case "Tower":
-        return new Tower(generateUUID(), cell[0], cell[1], cell[2], "Tower");
+        return new Tower(generateUUID(), ...chessCellId, "Tower");
       case "Horse":
-        return new Horse(generateUUID(), cell[0], cell[1], cell[2], "Horse");
+        return new Horse(generateUUID(), ...chessCellId, "Horse");
     }
     //Throw error chess piece type not recognized
     console.log("ERRROR NOT RECOGNIZED CHESS PIECE TYPE");
@@ -64,30 +64,30 @@ export default class ChessboardController {
   }
 
   onCellClicked(cell, isShiftDown, uiSettings) {
-    if (isShiftDown) {
-      const chessPiece = this.chessboard.getChessPieceByPosition(
-        cell[0],
-        cell[1],
-        cell[2]
-      );
-      if (chessPiece) {
+    const chessCellId = this.chessboard.cellToCellId(cell);
+    const chessPiece = this.chessboard.getChessPieceByCellId(
+      "".concat(...chessCellId)
+    );
+    if (chessPiece) {
+      if (isShiftDown) {
         this.chessboard.removeChessPiece(chessPiece);
         // this.executeCommand(new RemoveVoxelCommand(this.voxelGrid, voxel));
       }
     } else {
-      const chessPiece = this.createChessPiece(cell, uiSettings.name);
-      this.chessboard.addChessPiece(chessPiece);
-      //   this.executeCommand(
-      //     new AddVoxelCommand(
-      //       this.voxelGrid,
-      //       generateUUID(),
-      //       cell[0],
-      //       cell[1],
-      //       cell[2],
-      //       parseInt(uiSettings.type)
-      //     )
-      //   );
+      const newChessPiece = this.createChessPiece(chessCellId, uiSettings.name);
+      this.chessboard.addChessPiece(newChessPiece);
     }
+
+    // this.executeCommand(
+    //   new AddVoxelCommand(
+    //     this.voxelGrid,
+    //     generateUUID(),
+    //     cell[0],
+    //     cell[1],
+    //     cell[2],
+    //     parseInt(uiSettings.type)
+    //   )
+    // );
   }
 
   //   executeCommand(command) {
