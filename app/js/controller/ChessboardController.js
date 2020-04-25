@@ -13,6 +13,8 @@ export default class ChessboardController {
     this.chessboardViewMediator = chessboardViewMediator;
     this.view = new MainView(this, chessboard);
     this.view.initialize();
+
+    this.selected = false;
   }
 
   //   addVoxelPointer() {
@@ -55,6 +57,14 @@ export default class ChessboardController {
 
   onCellHover(cell) {
     console.log("Hovering");
+
+    const chessCellId = this.chessboard.cellToCellId(cell);
+    const chessPiece = this.chessboard.getChessPieceByCellId(chessCellId);
+
+    if (this.isSelected() && !chessPiece) {
+      this.chessboard.moveChessPiece(this.selected, chessCellId);
+    }
+
     // this.executeCommand(
     //   new MoveVoxelCommand(
     //     this.voxelGrid,
@@ -86,32 +96,43 @@ export default class ChessboardController {
     return;
   }
 
-  onCellClicked(cell, isShiftDown, uiSettings) {
+  onCellClicked(cell) {
     const chessCellId = this.chessboard.cellToCellId(cell);
-    const chessPiece = this.chessboard.getChessPieceByCellId(
-      "".concat(...chessCellId)
-    );
-    if (chessPiece) {
-      if (isShiftDown) {
-        this.chessboard.removeChessPiece(chessPiece);
-        // this.executeCommand(new RemoveVoxelCommand(this.voxelGrid, voxel));
-      }
-    } else {
-      const newChessPiece = this.createChessPiece(chessCellId, uiSettings.name);
-      this.chessboard.addChessPiece(newChessPiece);
-    }
+    const chessPiece = this.chessboard.getChessPieceByCellId(chessCellId);
 
-    // this.executeCommand(
-    //   new AddVoxelCommand(
-    //     this.voxelGrid,
-    //     generateUUID(),
-    //     cell[0],
-    //     cell[1],
-    //     cell[2],
-    //     parseInt(uiSettings.type)
-    //   )
-    // );
+    if (this.isSelected()) {
+      this.deselectChessPiece();
+    } else {
+      this.selectChessPiece(chessPiece);
+    }
   }
+
+  selectChessPiece(chessPiece) {
+    if (chessPiece && !this.selected) {
+      this.selected = chessPiece;
+    }
+  }
+
+  isSelected() {
+    if (this.selected) {
+      return true;
+    }
+    return false;
+  }
+
+  deselectChessPiece() {
+    this.selected = false;
+  }
+  // this.executeCommand(
+  //   new AddVoxelCommand(
+  //     this.voxelGrid,
+  //     generateUUID(),
+  //     cell[0],
+  //     cell[1],
+  //     cell[2],
+  //     parseInt(uiSettings.type)
+  //   )
+  // );
 
   //   executeCommand(command) {
   //     command.execute(command);
