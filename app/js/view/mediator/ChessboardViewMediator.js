@@ -25,8 +25,10 @@ export default class ChessboardViewMediator extends ViewMediator {
 
   onChessPieceMoved(e) {
     const chessPiece = e.chessPiece;
-
-    this.setVoxelPosition(e.chessPiece, this.childMediators.get(chessPiece));
+    this.setChessPiecePosition(
+      e.chessPiece,
+      this.childMediators.get(chessPiece)
+    );
   }
 
   onChessPieceRemoved(e) {
