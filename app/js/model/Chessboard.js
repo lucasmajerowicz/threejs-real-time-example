@@ -29,7 +29,7 @@ class Chessboard extends Observable {
   }
 
   getChessPieceByCellId(cellId) {
-    return this.chessPieces.get(cellId);
+    return this.chessPieces.get("".concat(...cellId));
   }
 
   getChessPieceByPosition(x, y) {
