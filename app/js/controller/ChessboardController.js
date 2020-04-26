@@ -33,22 +33,38 @@ export default class ChessboardController {
   //   }
   initialize_chessboard() {
     const chessPieces = [
-      [["A", "2"], "Pawn"],
-      [["B", "2"], "Pawn"],
-      [["C", "2"], "Pawn"],
-      [["D", "2"], "Pawn"],
-      [["E", "2"], "Pawn"],
-      [["F", "2"], "Pawn"],
-      [["G", "2"], "Pawn"],
-      [["H", "2"], "Pawn"],
-      [["A", "1"], "Tower"],
-      [["H", "1"], "Tower"],
-      [["B", "1"], "Horse"],
-      [["G", "1"], "Horse"],
-      [["C", "1"], "Knight"],
-      [["F", "1"], "Knight"],
-      [["D", "1"], "Queen"],
-      [["E", "1"], "King"],
+      [["A", "2"], "Pawn", "White"],
+      [["B", "2"], "Pawn", "White"],
+      [["C", "2"], "Pawn", "White"],
+      [["D", "2"], "Pawn", "White"],
+      [["E", "2"], "Pawn", "White"],
+      [["F", "2"], "Pawn", "White"],
+      [["G", "2"], "Pawn", "White"],
+      [["H", "2"], "Pawn", "White"],
+      [["A", "1"], "Tower", "White"],
+      [["H", "1"], "Tower", "White"],
+      [["B", "1"], "Horse", "White"],
+      [["G", "1"], "Horse", "White"],
+      [["C", "1"], "Knight", "White"],
+      [["F", "1"], "Knight", "White"],
+      [["D", "1"], "Queen", "White"],
+      [["E", "1"], "King", "White"],
+      [["A", "7"], "Pawn", "Black"],
+      [["B", "7"], "Pawn", "Black"],
+      [["C", "7"], "Pawn", "Black"],
+      [["D", "7"], "Pawn", "Black"],
+      [["E", "7"], "Pawn", "Black"],
+      [["F", "7"], "Pawn", "Black"],
+      [["G", "7"], "Pawn", "Black"],
+      [["H", "7"], "Pawn", "Black"],
+      [["A", "8"], "Tower", "Black"],
+      [["H", "8"], "Tower", "Black"],
+      [["B", "8"], "Horse", "Black"],
+      [["G", "8"], "Horse", "Black"],
+      [["C", "8"], "Knight", "Black"],
+      [["F", "8"], "Knight", "Black"],
+      [["D", "8"], "Queen", "Black"],
+      [["E", "8"], "King", "Black"],
     ];
     chessPieces.forEach((e) => {
       this.chessboard.addChessPiece(this.createChessPiece(...e));
@@ -74,20 +90,20 @@ export default class ChessboardController {
     // );
   }
 
-  createChessPiece(chessCellId, name) {
+  createChessPiece(chessCellId, name, player) {
     switch (name) {
       case "Knight":
-        return new Knight(generateUUID(), ...chessCellId, name);
+        return new Knight(generateUUID(), ...chessCellId, name, player);
       case "King":
-        return new King(generateUUID(), ...chessCellId, name);
+        return new King(generateUUID(), ...chessCellId, name, player);
       case "Queen":
-        return new Queen(generateUUID(), ...chessCellId, name);
+        return new Queen(generateUUID(), ...chessCellId, name, player);
       case "Pawn":
-        return new Pawn(generateUUID(), ...chessCellId, name);
+        return new Pawn(generateUUID(), ...chessCellId, name, player);
       case "Tower":
-        return new Tower(generateUUID(), ...chessCellId, name);
+        return new Tower(generateUUID(), ...chessCellId, name, player);
       case "Horse":
-        return new Horse(generateUUID(), ...chessCellId, name);
+        return new Horse(generateUUID(), ...chessCellId, name, player);
     }
     //Throw error chess piece type not recognized
     console.log("ERRROR NOT RECOGNIZED CHESS PIECE TYPE");

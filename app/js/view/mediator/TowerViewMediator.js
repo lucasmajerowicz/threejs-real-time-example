@@ -33,13 +33,16 @@ export default class TowerViewMediator extends ViewMediator {
         geometry = child.geometry;
       }
     });
-    let mesh = new THREE.Mesh(geometry, this.getMaterial());
+    let mesh = new THREE.Mesh(
+      geometry,
+      this.getMaterial(this.model.player.toLowerCase())
+    );
     return mesh;
   }
 
-  getMaterial() {
+  getMaterial(color) {
     return new THREE.MeshPhongMaterial({
-      color: new THREE.Color(0, 0, 0),
+      color: new THREE.Color(color),
       opacity: 1,
       transparent: true,
     });
