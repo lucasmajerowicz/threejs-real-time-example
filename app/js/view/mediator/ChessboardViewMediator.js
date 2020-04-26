@@ -41,7 +41,7 @@ export default class ChessboardViewMediator extends ViewMediator {
     const chessPiece = e.chessPiece;
     const mediator = this.childMediators.get(chessPiece);
     if (mediator) {
-      mediator.object3D.material.color.set(0x000000);
+      mediator.object3D.material.color.set(chessPiece.player.toLowerCase());
     }
   }
 
