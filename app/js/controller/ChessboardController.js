@@ -56,8 +56,6 @@ export default class ChessboardController {
   }
 
   onCellHover(cell) {
-    console.log("Hovering");
-
     const chessCellId = this.chessboard.cellToCellId(cell);
     const chessPiece = this.chessboard.getChessPieceByCellId(chessCellId);
 
