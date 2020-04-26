@@ -29,8 +29,14 @@ class Chessboard extends Observable {
     this.emit("ChessPieceRemoved", { chessPiece });
   }
 
-  highLightChessPiece(chessPiece, prevChessPiece) {
-    this.emit("ChessPieceHighLighted", { chessPiece, prevChessPiece });
+  selectChessPiece(chessPiece) {
+    chessPiece.select = true;
+    this.emit("ChessPieceSelected", { chessPiece });
+  }
+
+  deselectChessPiece(chessPiece) {
+    chessPiece.select = false;
+    this.emit("ChessPieceDeselected", { chessPiece });
   }
 
   getChessPieceByCellId(cellId) {

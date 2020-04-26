@@ -11,8 +11,11 @@ export default class ChessboardViewMediator extends ViewMediator {
       this.onChessPieceRemoved(e)
     );
     chessboard.addObserver("ChessPieceMoved", (e) => this.onChessPieceMoved(e));
-    chessboard.addObserver("ChessPieceHighLighted", (e) =>
-      this.onChessPieceHighLighted(e)
+    chessboard.addObserver("ChessPieceSelected", (e) =>
+      this.onChessPieceSelected(e)
+    );
+    chessboard.addObserver("ChessPieceDeselected", (e) =>
+      this.onChessPieceDeselected(e)
     );
 
     const grid = this.getGridObject(chessboard);
@@ -26,17 +29,19 @@ export default class ChessboardViewMediator extends ViewMediator {
     this.objects.push(this.plane);
   }
 
-  onChessPieceHighLighted(e) {
+  onChessPieceSelected(e) {
     const chessPiece = e.chessPiece;
-    const prevChessPiece = e.prevChessPiece;
     const mediator = this.childMediators.get(chessPiece);
     if (mediator) {
-      mediator.object3D.material.color.set("blue");
+      mediator.object3D.material.color.set(0xffff00);
     }
+  }
 
-    const prevMediator = this.childMediators.get(prevChessPiece);
-    if (prevMediator) {
-      prevMediator.object3D.material.color.set("black");
+  onChessPieceDeselected(e) {
+    const chessPiece = e.chessPiece;
+    const mediator = this.childMediators.get(chessPiece);
+    if (mediator) {
+      mediator.object3D.material.color.set(0x000000);
     }
   }
 
