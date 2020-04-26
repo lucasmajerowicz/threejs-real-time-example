@@ -27,14 +27,21 @@ export default class QueenViewMediator extends ViewMediator {
   }
 
   makeObject3D() {
-    let queen = new THREE.Object3D();
-    queen = model.clone();
-    return queen;
+    let geometry;
+    model.traverse(function (child) {
+      if (child.geometry !== undefined) {
+        geometry = child.geometry;
+      }
+    });
+    let mesh = new THREE.Mesh(geometry, this.getMaterial());
+    return mesh;
   }
 
-  getMaterialForQueen() {
+  getMaterial() {
     return new THREE.MeshPhongMaterial({
-      map: new THREE.TextureLoader().load("images/" + "stone.jpg"),
+      color: new THREE.Color(0, 0, 0),
+      opacity: 1,
+      transparent: true,
     });
   }
 }

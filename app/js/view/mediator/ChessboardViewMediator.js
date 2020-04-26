@@ -11,6 +11,12 @@ export default class ChessboardViewMediator extends ViewMediator {
       this.onChessPieceRemoved(e)
     );
     chessboard.addObserver("ChessPieceMoved", (e) => this.onChessPieceMoved(e));
+    chessboard.addObserver("ChessPieceSelected", (e) =>
+      this.onChessPieceSelected(e)
+    );
+    chessboard.addObserver("ChessPieceDeselected", (e) =>
+      this.onChessPieceDeselected(e)
+    );
 
     const grid = this.getGridObject(chessboard);
 
@@ -23,10 +29,29 @@ export default class ChessboardViewMediator extends ViewMediator {
     this.objects.push(this.plane);
   }
 
+  onChessPieceSelected(e) {
+    const chessPiece = e.chessPiece;
+    const mediator = this.childMediators.get(chessPiece);
+    if (mediator) {
+      mediator.object3D.material.color.set(0xffff00);
+    }
+  }
+
+  onChessPieceDeselected(e) {
+    const chessPiece = e.chessPiece;
+    const mediator = this.childMediators.get(chessPiece);
+    if (mediator) {
+      mediator.object3D.material.color.set(0x000000);
+    }
+  }
+
   onChessPieceMoved(e) {
     const chessPiece = e.chessPiece;
 
-    this.setVoxelPosition(e.chessPiece, this.childMediators.get(chessPiece));
+    this.setChessPiecePosition(
+      e.chessPiece,
+      this.childMediators.get(chessPiece)
+    );
   }
 
   onChessPieceRemoved(e) {

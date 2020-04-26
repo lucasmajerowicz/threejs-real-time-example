@@ -11,13 +11,16 @@ class Chessboard extends Observable {
   }
 
   addChessPiece(chessPiece) {
+    console.log(this.chessPieces);
     this.chessPieces.set("".concat(chessPiece.x, chessPiece.y), chessPiece);
     this.emit("ChessPieceAdded", { chessPiece });
   }
 
-  moveChessPiece(chessPiece, x, y) {
-    chessPiece.x = x;
-    chessPiece.y = y;
+  moveChessPiece(chessPiece, cell) {
+    this.chessPieces.delete("".concat(chessPiece.x, chessPiece.y));
+    chessPiece.x = cell[0];
+    chessPiece.y = cell[1];
+    this.chessPieces.set("".concat(chessPiece.x, chessPiece.y), chessPiece);
     this.emit("ChessPieceMoved", { chessPiece });
   }
 
@@ -26,8 +29,18 @@ class Chessboard extends Observable {
     this.emit("ChessPieceRemoved", { chessPiece });
   }
 
+  selectChessPiece(chessPiece) {
+    chessPiece.selected = true;
+    this.emit("ChessPieceSelected", { chessPiece });
+  }
+
+  deselectChessPiece(chessPiece) {
+    chessPiece.selected = false;
+    this.emit("ChessPieceDeselected", { chessPiece });
+  }
+
   getChessPieceByCellId(cellId) {
-    return this.chessPieces.get(cellId);
+    return this.chessPieces.get("".concat(...cellId));
   }
 
   getChessPieceByPosition(x, y) {

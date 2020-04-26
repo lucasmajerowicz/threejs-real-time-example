@@ -27,14 +27,21 @@ export default class KnightViewMediator extends ViewMediator {
   }
 
   makeObject3D() {
-    let knight = new THREE.Object3D();
-    knight = model.clone();
-    return knight;
+    let geometry;
+    model.traverse(function (child) {
+      if (child.geometry !== undefined) {
+        geometry = child.geometry;
+      }
+    });
+    let mesh = new THREE.Mesh(geometry, this.getMaterial());
+    return mesh;
   }
 
-  getMaterialForKnight() {
+  getMaterial() {
     return new THREE.MeshPhongMaterial({
-      map: new THREE.TextureLoader().load("images/" + "stone.jpg"),
+      color: new THREE.Color(0, 0, 0),
+      opacity: 1,
+      transparent: true,
     });
   }
 }
