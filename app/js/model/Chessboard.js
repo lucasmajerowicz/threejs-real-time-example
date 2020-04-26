@@ -30,12 +30,12 @@ class Chessboard extends Observable {
   }
 
   selectChessPiece(chessPiece) {
-    chessPiece.select = true;
+    chessPiece.selected = true;
     this.emit("ChessPieceSelected", { chessPiece });
   }
 
   deselectChessPiece(chessPiece) {
-    chessPiece.select = false;
+    chessPiece.selected = false;
     this.emit("ChessPieceDeselected", { chessPiece });
   }
 
