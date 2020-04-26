@@ -15,6 +15,7 @@ export default class ChessboardController {
     this.view.initialize();
 
     this.selected = false;
+    this.prevHighLighted;
   }
 
   //   addVoxelPointer() {
@@ -65,6 +66,17 @@ export default class ChessboardController {
       this.chessboard.moveChessPiece(this.selected, chessCellId);
     }
 
+    if (!this.prevHighLighted) {
+      this.prevHighLighted = chessPiece;
+    }
+
+    if (chessPiece && this.prevHighLighted) {
+      if (this.prevHighLighted.id !== chessPiece.id) {
+        this.chessboard.highLightChessPiece(chessPiece, this.prevHighLighted);
+        this.prevHighLighted = chessPiece;
+      }
+    }
+
     // this.executeCommand(
     //   new MoveVoxelCommand(
     //     this.voxelGrid,
@@ -109,6 +121,7 @@ export default class ChessboardController {
 
   selectChessPiece(chessPiece) {
     if (chessPiece && !this.selected) {
+      chessPiece.isSelected = true;
       this.selected = chessPiece;
     }
   }
