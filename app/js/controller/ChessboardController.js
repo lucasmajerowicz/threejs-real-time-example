@@ -120,7 +120,7 @@ export default class ChessboardController {
   }
 
   deselectChessPiece(chessPiece) {
-    if (chessPiece) {
+    if (chessPiece && chessPiece.selected) {
       this.chessboard.deselectChessPiece(chessPiece);
       this.selected = false;
     }
