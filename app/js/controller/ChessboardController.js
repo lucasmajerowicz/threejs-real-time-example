@@ -32,7 +32,7 @@ export default class ChessboardController {
   //     this.voxelGridRemoteMediator.onCommandExecuted(voxelPointerCommand);
   //   }
   initialize_chessboard() {
-    const pawn_positions = [
+    const chessPieces = [
       [["A", "2"], "Pawn"],
       [["B", "2"], "Pawn"],
       [["C", "2"], "Pawn"],
@@ -50,7 +50,7 @@ export default class ChessboardController {
       [["D", "1"], "Queen"],
       [["E", "1"], "King"],
     ];
-    pawn_positions.forEach((e) => {
+    chessPieces.forEach((e) => {
       this.chessboard.addChessPiece(this.createChessPiece(...e));
     });
   }
