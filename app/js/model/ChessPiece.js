@@ -8,5 +8,6 @@ export default class ChessPiece extends Observable {
     this.y = y;
     this.name = name;
     this.properties = properties;
+    this.selected = false;
   }
 }
