@@ -11,15 +11,16 @@ class Chessboard extends Observable {
   }
 
   addChessPiece(chessPiece) {
+    console.log(this.chessPieces);
     this.chessPieces.set("".concat(chessPiece.x, chessPiece.y), chessPiece);
     this.emit("ChessPieceAdded", { chessPiece });
   }
 
   moveChessPiece(chessPiece, cell) {
-    this.removeChessPiece(chessPiece);
+    this.chessPieces.delete("".concat(chessPiece.x, chessPiece.y));
     chessPiece.x = cell[0];
     chessPiece.y = cell[1];
-    this.addChessPiece(chessPiece);
+    this.chessPieces.set("".concat(chessPiece.x, chessPiece.y), chessPiece);
     this.emit("ChessPieceMoved", { chessPiece });
   }
 
