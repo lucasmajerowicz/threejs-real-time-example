@@ -27,14 +27,22 @@ export default class HorseViewMediator extends ViewMediator {
   }
 
   makeObject3D() {
-    let horse = new THREE.Object3D();
-    horse = model.clone();
-    return horse;
+    let geometry;
+    model.traverse(function (child) {
+      if (child.geometry !== undefined) {
+        geometry = child.geometry;
+      }
+    });
+    let mesh = new THREE.Mesh(geometry, this.getMaterial());
+    return mesh;
   }
 
-  getMaterialForHorse() {
+  getMaterial() {
     return new THREE.MeshPhongMaterial({
-      map: new THREE.TextureLoader().load("images/" + "stone.jpg"),
+      color: new THREE.Color(0, 0, 0),
+      opacity: 1,
+      transparent: true,
     });
+    // return new THREE.MeshBasicMaterial({ color: 0xff0000 });
   }
 }

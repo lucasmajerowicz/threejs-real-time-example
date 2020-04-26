@@ -27,14 +27,21 @@ export default class TowerViewMediator extends ViewMediator {
   }
 
   makeObject3D() {
-    let tower = new THREE.Object3D();
-    tower = model.clone();
-    return tower;
+    let geometry;
+    model.traverse(function (child) {
+      if (child.geometry !== undefined) {
+        geometry = child.geometry;
+      }
+    });
+    let mesh = new THREE.Mesh(geometry, this.getMaterial());
+    return mesh;
   }
 
-  getMaterialForTower() {
+  getMaterial() {
     return new THREE.MeshPhongMaterial({
-      map: new THREE.TextureLoader().load("images/" + "brick.jpg"),
+      color: new THREE.Color(0, 0, 0),
+      opacity: 1,
+      transparent: true,
     });
   }
 }

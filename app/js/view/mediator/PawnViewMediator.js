@@ -27,14 +27,21 @@ export default class PawnViewMediator extends ViewMediator {
   }
 
   makeObject3D() {
-    let pawn = new THREE.Object3D();
-    pawn = model.clone();
-    return pawn;
+    let geometry;
+    model.traverse(function (child) {
+      if (child.geometry !== undefined) {
+        geometry = child.geometry;
+      }
+    });
+    let mesh = new THREE.Mesh(geometry, this.getMaterial());
+    return mesh;
   }
 
-  getMaterialForPawn() {
+  getMaterial() {
     return new THREE.MeshPhongMaterial({
-      map: new THREE.TextureLoader().load("images/" + "brick.jpg"),
+      color: new THREE.Color(0, 0, 0),
+      opacity: 1,
+      transparent: true,
     });
   }
 }
