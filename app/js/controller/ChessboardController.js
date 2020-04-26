@@ -14,7 +14,7 @@ export default class ChessboardController {
     this.view = new MainView(this, chessboard);
     this.view.initialize();
 
-    this.selected = false;
+    this.selectedChessPiece = false;
   }
 
   //   addVoxelPointer() {
@@ -60,7 +60,7 @@ export default class ChessboardController {
     const chessPiece = this.chessboard.getChessPieceByCellId(chessCellId);
 
     if (this.isSelected() && !chessPiece) {
-      this.chessboard.moveChessPiece(this.selected, chessCellId);
+      this.chessboard.moveChessPiece(this.selectedChessPiece, chessCellId);
     }
 
     // this.executeCommand(
@@ -106,14 +106,14 @@ export default class ChessboardController {
   }
 
   selectChessPiece(chessPiece) {
-    if (chessPiece && !this.selected) {
+    if (chessPiece && !this.selectedChessPiece) {
       this.chessboard.selectChessPiece(chessPiece);
-      this.selected = chessPiece;
+      this.selectedChessPiece = chessPiece;
     }
   }
 
   isSelected() {
-    if (this.selected) {
+    if (this.selectedChessPiece) {
       return true;
     }
     return false;
@@ -122,7 +122,7 @@ export default class ChessboardController {
   deselectChessPiece(chessPiece) {
     if (chessPiece && chessPiece.selected) {
       this.chessboard.deselectChessPiece(chessPiece);
-      this.selected = false;
+      this.selectedChessPiece = false;
     }
   }
   // this.executeCommand(
