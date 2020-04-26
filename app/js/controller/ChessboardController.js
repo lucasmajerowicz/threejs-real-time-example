@@ -77,17 +77,17 @@ export default class ChessboardController {
   createChessPiece(chessCellId, name) {
     switch (name) {
       case "Knight":
-        return new Knight(generateUUID(), ...chessCellId, "Knight");
+        return new Knight(generateUUID(), ...chessCellId, name);
       case "King":
-        return new King(generateUUID(), ...chessCellId, "King");
+        return new King(generateUUID(), ...chessCellId, name);
       case "Queen":
-        return new Queen(generateUUID(), ...chessCellId, "Queen");
+        return new Queen(generateUUID(), ...chessCellId, name);
       case "Pawn":
-        return new Pawn(generateUUID(), ...chessCellId, "Pawn");
+        return new Pawn(generateUUID(), ...chessCellId, name);
       case "Tower":
-        return new Tower(generateUUID(), ...chessCellId, "Tower");
+        return new Tower(generateUUID(), ...chessCellId, name);
       case "Horse":
-        return new Horse(generateUUID(), ...chessCellId, "Horse");
+        return new Horse(generateUUID(), ...chessCellId, name);
     }
     //Throw error chess piece type not recognized
     console.log("ERRROR NOT RECOGNIZED CHESS PIECE TYPE");
