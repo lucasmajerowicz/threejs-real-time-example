@@ -149,8 +149,7 @@ export default class MainView {
 
     if (intersects.length > 0) {
       if (!this.isShiftDown || !intersects[0].object.cell) {
-        const point = intersects[0].point.add(intersects[0].face.normal);
-
+        const point = intersects[0].point;
         return this.chessboardMediator.getGridCellFromWorldPosition(point);
       } else {
         return intersects[0].object.cell;
