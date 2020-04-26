@@ -16,7 +16,7 @@ export default class RenderingContext {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     const controls = new THREE.TrackballControls(camera, renderer.domElement);
 
-    camera.position.set(70, 100, 160);
+    camera.position.set(0, 120, 120);
     camera.lookAt(new THREE.Vector3());
     camera.fov /= 2;
 
